@@ -30,7 +30,7 @@ class DrawCards:
             drawn.append(self.deck.pop())
         return drawn
         
-
+#TODO: add a def to add players to the game and there names 
 class Player():
     def __init__(self,name):
         self.name = name
@@ -47,8 +47,10 @@ if __name__ == "__main__":
     print("Deck:", len(deck))
     print("Draw 4:", shoe.draw(4))
     print(len(deck))
+   
 
-    player = Player(input("Whats your name?: "))
+    player = input("Whats your name?: ")
+    Player = player
     player.draw_from_shoe(shoe, 2)
     print(f"{player}'s hand: {player.hand}")
     print(len(deck))
