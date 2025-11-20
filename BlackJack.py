@@ -9,14 +9,18 @@ deck = [] # Blank Deck
 G_score = 0 # round score
 
 
-#TODO:Make this in to a class and have a function that returns the deck size
-def make_deck():
-    # Combines Suits and Ranks to make a list of complete cards and then shuffle a 6 pack deck.
-    for _ in range(6):
-        for suit in SUITS:
-            for rank in RANKS:
-                deck.append((f"{rank}{suit}"))
-    random.shuffle(deck)    
+class Deck:
+    def __init__(self, num_packs=6):
+        self.cards = []
+        for _ in range(num_packs):
+            for suit in SUITS:
+                for rank in RANKS:
+                    self.cards.append(f"{rank}{suit}")
+        random.shuffle(self.cards)
+
+    def size(self):
+        return len(self.cards)
+
 
 class DrawCards:
     def __init__(self,deck):
@@ -27,31 +31,32 @@ class DrawCards:
         for _ in range(n):
             if not self.deck:
                 break # no more cards
-            drawn.append(self.deck.pop())
+            drawn.append(self.deck.cards.pop())
         return drawn
         
 #TODO: add a def to add players to the game and there names 
 class Player():
-    def __init__(self,name):
+    def __init__(self, name, shoe):
         self.name = name
         self.hand = []
+        self.shoe = shoe
 
-    def draw_from_shoe(self, shoe, n):
-        self.hand.extend(shoe.draw(n))
+    def p_draw(self, n):
+        if self.shoe:
+            self.hand.extend(self.shoe.draw(n))
+        else:
+            raise ValueError("Player has no shoe assigned to draw from")
 
 
 if __name__ == "__main__":
-    make_deck()
+    deck = Deck()
     shoe = DrawCards(deck)
-
-    print("Deck:", len(deck))
+    print("Deck size:", deck.size())
     print("Draw 4:", shoe.draw(4))
-    print(len(deck))
+    print("Deck after draw:", deck.size())
    
-
-    player = input("Whats your name?: ")
-    Player = player
-    player.draw_from_shoe(shoe, 2)
-    print(f"{player}'s hand: {player.hand}")
-    print(len(deck))
+    player = Player(input("Whats your name?: "), shoe)
+    player.p_draw(5)
+    print(f"{player.name}'s hand: {player.hand}")
+    print(deck.size())
 
