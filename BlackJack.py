@@ -3,10 +3,8 @@ import random
 # Conpnets of cards
 SUITS = ['♢','♣','♡','♠']
 RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
+FACE = ['J','Q','K']
 
-deck = [] # Blank Deck
-
-G_score = 0 # round score
 
 
 class Deck:
@@ -21,7 +19,6 @@ class Deck:
     def size(self):
         return len(self.cards)
 
-
 class DrawCards:
     def __init__(self,deck):
         self.deck = deck
@@ -34,8 +31,7 @@ class DrawCards:
             drawn.append(self.deck.cards.pop())
         return drawn
         
-#TODO: add a def to add players to the game and there names 
-class Player():
+class Player:
     def __init__(self, name, shoe):
         self.name = name
         self.hand = []
@@ -46,6 +42,38 @@ class Player():
             self.hand.extend(self.shoe.draw(n))
         else:
             raise ValueError("Player has no shoe assigned to draw from")
+        
+
+#TODO: Make a score function that will get the hand score of the hand and the bankers score 
+class Score:
+    def __init__(self,hand):
+        self.hand = hand
+
+    def get_score(self):
+        total = 0
+        aces = 0 
+
+        for card in self.hand: # Strips cards of Suits
+            value = card[:-1]
+
+            if value == "A": #Count Aces separately 
+                aces += 1
+            elif value in FACE:
+                total += 10
+            else:
+                total += int(value)
+        
+        # Aces can be 11 as long as the hand dosnt bust, 1 if it will
+        for _ in range(aces):
+            if total + 11 <= 21:
+                total += 11
+            else:
+                total += 1
+
+        return total
+
+
+        
 
 
 if __name__ == "__main__":
@@ -59,4 +87,7 @@ if __name__ == "__main__":
     player.p_draw(5)
     print(f"{player.name}'s hand: {player.hand}")
     print(deck.size())
+    player_score = Score(player.hand)
+    print(player_score.get_score())
+  
 

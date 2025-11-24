@@ -44,3 +44,14 @@
 
 
 
+# hand = ['J♣', 'K♡', 'K♡', '5♢']
+
+# for i in hand:
+#     print(i.split)
+
+# # for score in range(len(hand)):
+
+value = ["10", "3", "a"]
+print(value.sort())
+
+
