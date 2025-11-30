@@ -36,6 +36,7 @@ class Player:
         self.name = name
         self.hand = []
         self.shoe = shoe
+        
 
     def p_draw(self, n):
         if self.shoe:
@@ -43,7 +44,9 @@ class Player:
         else:
             raise ValueError("Player has no shoe assigned to draw from")
         
-
+    def p_score(self):
+        return Score(self.hand).get_score()
+        
 #TODO: Make a score function that will get the hand score of the hand and the bankers score 
 class Score:
     def __init__(self,hand):
@@ -72,7 +75,9 @@ class Score:
 
         return total
 
-
+# class Dealer:
+#     def __init__(self):
+        
         
 
 
@@ -87,7 +92,7 @@ if __name__ == "__main__":
     player.p_draw(5)
     print(f"{player.name}'s hand: {player.hand}")
     print(deck.size())
-    player_score = Score(player.hand)
-    print(player_score.get_score())
+    
+    print(player.p_score())
   
 
