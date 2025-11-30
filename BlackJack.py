@@ -90,15 +90,20 @@ class Dealer:
 
 if __name__ == "__main__":
     shoe = Shoe()
-    print("Deck size:", shoe.size())
-    print("Draw 4:", shoe.draw(4))
-    print("Deck after draw:", shoe.size())
+    print("Shoe size:", shoe.size())
+    # print("Draw 4:", shoe.draw(4))
+    # print("Deck after draw:", shoe.size())
    
     player = Player(input("Whats your name?: "), shoe)
-    player.p_draw(5)
+    dealer = Dealer("Dealer", shoe)
+    player.p_draw(2)
+    dealer.dealer_draw(2)
+    
     print(f"{player.name}'s hand: {player.hand}")
+    print(f"{dealer.name}'s hand: [??, {dealer.hand[0]}]")
     print(shoe.size())
     
     print(player.p_score())
+    print(dealer.dealer_score())
   
 
