@@ -69,7 +69,7 @@ class Score:
             else:
                 total += 1
 
-        return total
+        return int(total)
 
 class Dealer:
     def __init__(self, name, shoe):
@@ -89,6 +89,7 @@ class Dealer:
 
 
 if __name__ == "__main__":
+
     shoe = Shoe()
     print("Shoe size:", shoe.size())
     # print("Draw 4:", shoe.draw(4))
@@ -99,11 +100,52 @@ if __name__ == "__main__":
     player.p_draw(2)
     dealer.dealer_draw(2)
     
-    print(f"{player.name}'s hand: {player.hand}")
-    print(f"{dealer.name}'s hand: [??, {dealer.hand[0]}]")
-    print(shoe.size())
+    print(f"\n{player.name}'s Hand: {player.hand} Score: {player.p_score()}")
+    print("Dealer must stand on 17 and draw to 16")
+    print(f"\n{dealer.name}'s Hand: [??, {dealer.hand[0]}]")
+
+    while True: 
+        # Game loop for player, hit or stand till 21 or bust.
+        if player.p_score() > 21:
+            print("You Bust!")
+            break
+        choice = input("\nHit or Stand: (h/s): ")
+        if choice == "h":
+            player.p_draw(1)
+            print(f"\n{player.name}'s Hand: {player.hand} Score: {player.p_score()}")
+        elif choice == "s":
+            break
+        else:
+            print("\nPlease type 'h' or 's'.")
+
+    # Dealer play "Dealer must stand on 17 and draw to 16"
+    if player.p_score() <= 21:
+        print(f"\n{dealer.name}'s \nHand: {dealer.hand} Score: {dealer.dealer_score()}")
+        while dealer.dealer_score() <17:
+            dealer.dealer_draw(1)
+            print(f"\n{dealer.name}'s Hits \nHand: {dealer.hand} Score: {dealer.dealer_score()}")
+
+    p_final = player.p_score()
+    d_final = dealer.dealer_score()
+    # Get final scores and who wins
+    print(f"\nFinal Scores: \n{player.name}: {p_final}\n{dealer.name}: {d_final}")
+
+    if p_final > 21:
+        print(f"{player.name} busts {dealer.name} WINS!")
+    elif d_final > 21:
+        print(f"{dealer.name} busts {player.name} WINS!")
+    elif p_final > d_final:
+        print(f"{player.name} WINS!")
+    elif d_final > p_final:
+        print(f"{dealer.name} WINS!")
+    else:
+        print("Tie")
+        
+
+
+    # print(shoe.size())
     
-    print(player.p_score())
-    print(dealer.dealer_score())
+    # print(player.p_score())
+    # print(dealer.dealer_score())
   
 
