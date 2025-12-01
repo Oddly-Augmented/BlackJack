@@ -1,10 +1,16 @@
 import random
 
+
+
 # Conpnets of cards
 SUITS = ['♢','♣','♡','♠']
 RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 FACE = ['J','Q','K']
 
+class Colors:
+     RESET = '\033[0m'
+     RED = '\033[31m'
+     GREEN = '\033[32m'
 
 class Shoe:
     def __init__(self, num_packs=6):
@@ -26,7 +32,6 @@ class Shoe:
     def size(self):
         return len(self.cards)
 
-        
 class Player:
     def __init__(self, name, shoe):
         self.name = name
@@ -43,7 +48,6 @@ class Player:
     def p_score(self):
         return Score(self.hand).get_score()
         
-#TODO: Make a score function that will get the hand score of the hand and the bankers score 
 class Score:
     def __init__(self,hand):
         self.hand = hand
@@ -131,13 +135,13 @@ if __name__ == "__main__":
     print(f"\nFinal Scores: \n{player.name}: {p_final}\n{dealer.name}: {d_final}")
 
     if p_final > 21:
-        print(f"{player.name} busts {dealer.name} WINS!")
+        print(f"{Colors.RED}{player.name} busts {dealer.name} WINS!{Colors.RESET}")
     elif d_final > 21:
-        print(f"{dealer.name} busts {player.name} WINS!")
+        print(f"{Colors.GREEN}{dealer.name} busts {player.name} WINS!{Colors.RESET}")
     elif p_final > d_final:
-        print(f"{player.name} WINS!")
+        print(f"{Colors.GREEN}{player.name} WINS!{Colors.RESET}")
     elif d_final > p_final:
-        print(f"{dealer.name} WINS!")
+        print(f"{Colors.RED}{dealer.name} WINS!{Colors.RESET}")
     else:
         print("Tie")
         
