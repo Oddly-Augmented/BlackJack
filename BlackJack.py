@@ -1,7 +1,5 @@
 import random
 
-
-
 # Conpnets of cards
 SUITS = ['♢','♣','♡','♠']
 RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
@@ -31,7 +29,7 @@ class Shoe:
     
     def size(self):
         return len(self.cards)
-
+#TODO: add a clear hand def
 class Player:
     def __init__(self, name, shoe):
         self.name = name
@@ -74,7 +72,7 @@ class Score:
                 total += 1
 
         return int(total)
-
+#TODO: Idd like to add a list of names for the Dealer like "Dealer {Random name}"
 class Dealer:
     def __init__(self, name, shoe):
         self.name = name
@@ -90,16 +88,21 @@ class Dealer:
     def dealer_score(self):
         return Score(self.hand).get_score()
         
+#TODO: class Game:
+# add the game loop here with the ablity to play many round as the same player
 
+#TODO: class Stats:
+#TODO: Make/generate a file to hold and store stats like Win/Loss, games played, ties and player/dealer wins but make it so there tied to the same inputed player name. 
+
+#TODO: class Betting:
+#TODO: I dont know if I can get to this but it would be fun to implement a betting system for the game and win/lose condishions for it. Like get $1000 and win or $0 and you lose. 
 
 if __name__ == "__main__":
 
-    shoe = Shoe()
+    shoe = Shoe() ### Make the deck
     print("Shoe size:", shoe.size())
-    # print("Draw 4:", shoe.draw(4))
-    # print("Deck after draw:", shoe.size())
    
-    player = Player(input("Whats your name?: "), shoe)
+    player = Player(input("Whats your name?: ").strip(), shoe)
     dealer = Dealer("Dealer", shoe)
     player.p_draw(2)
     dealer.dealer_draw(2)
@@ -113,7 +116,7 @@ if __name__ == "__main__":
         if player.p_score() > 21:
             print("You Bust!")
             break
-        choice = input("\nHit or Stand: (h/s): ")
+        choice = input("\nHit or Stand: (h/s): ").strip().lower()
         if choice == "h":
             player.p_draw(1)
             print(f"\n{player.name}'s Hand: {player.hand} Score: {player.p_score()}")
@@ -145,11 +148,4 @@ if __name__ == "__main__":
     else:
         print("Tie")
         
-
-
-    # print(shoe.size())
-    
-    # print(player.p_score())
-    # print(dealer.dealer_score())
-  
 
