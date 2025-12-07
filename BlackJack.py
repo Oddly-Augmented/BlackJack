@@ -140,10 +140,13 @@ if __name__ == "__main__":
 
     # Game Loop
     while True:
-        game_choice = input("Would you like to play (y/n): ").strip().lower()
+        game_choice = input("Would you like to play (y/n) or see stats (s): ").strip().lower()
         if game_choice == "n":
             print("Thanks for playing!")
             break
+        elif game_choice == "s":
+            stats.load_stats()
+            print(f"Games Played: {stats.data['games_played']}, Won: {stats.data['games_won']}, Lost: {stats.data['games_lost']}, Tied: {stats.data['games_tied']}")
         elif game_choice == "y":
             
             player.clear_p_hand()
@@ -197,6 +200,6 @@ if __name__ == "__main__":
                 stats.record_tie()
                 print("Tie")
         else:
-            print("Please type 'y' or 'n'.")
+            print("Please type 'y' or 'n' or 's'.")
         
 
